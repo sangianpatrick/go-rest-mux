@@ -26,11 +26,36 @@ func NewUserMongoRepository(mgoSESS *mgo.Session) user.MongoRepositrory {
 	}
 }
 
+// InsertOne will add new record to user collection
+func (umr *UserMongoRepository) InsertOne(user *model.User) *wrapper.Property {
+	result := make(chan *wrapper.Property)
+	next := make(chan bool)
+
+	go func() {
+		data := umr.FindByEmail(user.Email)
+		if !data.Error {
+			result <- wrapper.Error(http.StatusConflict, "duplicate data entry")
+			next <- false
+		}
+		next <- true
+	}()
+	go func(n <-chan bool) {
+		if <-n {
+			err := umr.sess.DB(umr.dbName).C(umr.collection).Insert(user)
+			if err != nil {
+				result <- wrapper.Error(http.StatusInternalServerError, err.Error())
+			}
+			result <- wrapper.Data(http.StatusCreated, user, "record has successfuly added")
+		}
+	}(next)
+	return <-result
+}
+
 // FindByID returns user data with spesific ID
 func (umr *UserMongoRepository) FindByID(ID string) *wrapper.Property {
 	var user model.User
 	query := bson.M{
-		"userID": ID,
+		"id": ID,
 	}
 	projection := bson.M{
 		"password": 0,

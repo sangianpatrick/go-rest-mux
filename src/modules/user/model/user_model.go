@@ -6,7 +6,7 @@ type User struct {
 	Name     string `json:"name" bson:"name"`
 	Email    string `json:"email" bson:"email"`
 	Phone    string `json:"phone" bson:"phone"`
-	Password string `json:"password" bson:"password"`
+	Password string `json:"password,omitempty" bson:"password"`
 }
 
 // Users contains list of user.

@@ -16,6 +16,6 @@ func NotFoundHandler(res http.ResponseWriter, req *http.Request) {
 		"GET,PUT,POST,DELETE")
 	res.Header().Set("Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content-Type")
-	data := wrapper.Error(http.StatusNotFound, "not found")
+	data := wrapper.Error(http.StatusNotFound, "resource is not found")
 	wrapper.Response(res, data.Code, data, data.Message)
 }
