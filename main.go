@@ -23,7 +23,7 @@ func init() {
 }
 
 func main() {
-	MgoSess := db.NewMongoDBSession()
+	MgoSESS := db.NewMongoDBSession()
 
 	r := mux.NewRouter()
 	r.Use(middleware.SetHeaders)
@@ -34,7 +34,7 @@ func main() {
 		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
-	app.MountUserApp("/api/v1/user", r, MgoSess)
+	app.MountUserApp("/api/v1/user", r, MgoSESS)
 
 	// CORS
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
@@ -43,11 +43,4 @@ func main() {
 	credsOk := handlers.AllowCredentials()
 
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r)))
-}
-
-func commonMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Content-Type", "application/json")
-		next.ServeHTTP(w, r)
-	})
 }
