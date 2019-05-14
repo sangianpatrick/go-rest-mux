@@ -6,7 +6,7 @@ import (
 
 // Domain contains user's behavior.
 type Domain interface {
+	GetProfile(email string) *wrapper.Property
 	GetByID(id string) *wrapper.Property
-	GetByEmail(email string) *wrapper.Property
-	GetAll() *wrapper.Property
+	GetAll(limit int, skip int) *wrapper.Property
 }

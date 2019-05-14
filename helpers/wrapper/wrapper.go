@@ -14,8 +14,8 @@ type Property struct {
 }
 
 // Error returns error response properties.
-func Error(code int, message string) Property {
-	return Property{
+func Error(code int, message string) *Property {
+	return &Property{
 		Error:   true,
 		Message: message,
 		Code:    code,
@@ -23,8 +23,8 @@ func Error(code int, message string) Property {
 }
 
 // Data returns data response properties.
-func Data(code int, data interface{}, message string) Property {
-	return Property{
+func Data(code int, data interface{}, message string) *Property {
+	return &Property{
 		Error:   false,
 		Data:    data,
 		Message: message,

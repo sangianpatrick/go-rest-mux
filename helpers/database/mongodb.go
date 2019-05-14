@@ -27,6 +27,7 @@ func NewMongoDBSession() *mgo.Session {
 	if err != nil {
 		log.Fatalf(`MongoDB Error: %s`, err)
 	}
+	log.Println("MongoDB Info: Database is connected")
 
 	return session
 }

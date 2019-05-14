@@ -1,18 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"time"
 
+	"gitlab.com/patricksangian/go-rest-mux/middleware"
+	"gitlab.com/patricksangian/go-rest-mux/src/app"
+
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	db "gitlab.com/patricksangian/go-rest-mux/helpers/database"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/middleware"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
 func init() {
@@ -24,29 +24,30 @@ func init() {
 
 func main() {
 	MgoSess := db.NewMongoDBSession()
-	err := MgoSess.Ping()
-	if err != nil {
-		fmt.Printf(`%s`, err)
-	}
-	r := mux.NewRouter()
-	r.Use(middleware.CORS)
 
-	r.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		user := &model.User{
-			ID:    "0001",
-			Name:  "Patrick Maurits Sangian",
-			Email: "patricksangian@gmail.com",
-			Phone: "08124541588",
-		}
-		data := wrapper.Data(http.StatusOK, user, "user data")
-		wrapper.Response(w, data.Code, &data, data.Message)
+	r := mux.NewRouter()
+	r.Use(middleware.SetHeaders)
+	r.NotFoundHandler = http.HandlerFunc(middleware.NotFoundHandler)
+
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		data := wrapper.Data(http.StatusOK, nil, "connected to application")
+		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
-	server := &http.Server{
-		Handler:      r,
-		Addr:         fmt.Sprintf(`127.0.0.1:%s`, os.Getenv("PORT")),
-		WriteTimeout: 2 * time.Second,
-		ReadTimeout:  2 * time.Second,
-	}
-	log.Fatal(server.ListenAndServe())
+	app.MountUserApp("/api/v1/user", r, MgoSess)
+
+	// CORS
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	originsOk := handlers.AllowedOrigins([]string{"*"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	credsOk := handlers.AllowCredentials()
+
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r)))
+}
+
+func commonMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Content-Type", "application/json")
+		next.ServeHTTP(w, r)
+	})
 }
