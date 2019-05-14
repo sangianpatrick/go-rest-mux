@@ -26,7 +26,7 @@ func main() {
 	MgoSESS := db.NewMongoDBSession()
 
 	r := mux.NewRouter()
-	r.Use(middleware.SetHeaders)
+	r.Use(middleware.SetDefaultHeaders)
 	r.NotFoundHandler = http.HandlerFunc(middleware.NotFoundHandler)
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

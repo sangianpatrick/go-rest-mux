@@ -5,8 +5,8 @@ import (
 	"os"
 )
 
-// SetHeaders middleware
-func SetHeaders(next http.Handler) http.Handler {
+// SetDefaultHeaders middleware
+func SetDefaultHeaders(next http.Handler) http.Handler {
 	appName := os.Getenv("APP_NAME")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Server", appName)
