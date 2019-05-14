@@ -37,7 +37,7 @@ func main() {
 	app.MountUserApp("/api/v1/user", r, MgoSESS)
 
 	// CORS
-	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Origin", "Content-Type"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 	credsOk := handlers.AllowCredentials()
