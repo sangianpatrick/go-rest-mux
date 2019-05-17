@@ -4,13 +4,17 @@ import (
 	"encoding/json"
 	"net/http"
 
+	ctx "github.com/gorilla/context"
 	"github.com/gorilla/mux"
+	"github.com/mitchellh/mapstructure"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	"gitlab.com/patricksangian/go-rest-mux/middleware"
+	amodel "gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
-// UserHTTPHandler contains http handler, user entity and behavior of users
+// UserHTTPHandler contains http handler, user entity and behavior
 type UserHTTPHandler struct {
 	userDomain user.Domain
 }
@@ -21,7 +25,8 @@ func NewUserHTTPHandler(r *mux.Router, ud user.Domain) {
 		userDomain: ud,
 	}
 	r.HandleFunc("/", uh.CreateUser).Methods("POST")
-	r.HandleFunc("/{userID}", uh.GetUserByID).Methods("GET")
+	r.HandleFunc("/{userID}", middleware.VerifyAccessToken(uh.GetUserByID)).Methods("GET")
+	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.GetProfile)).Methods("GET")
 }
 
 // CreateUser will handle creation of user
@@ -43,4 +48,15 @@ func (uh *UserHTTPHandler) GetUserByID(res http.ResponseWriter, req *http.Reques
 	userID := params["userID"]
 	user := uh.userDomain.GetByID(userID)
 	wrapper.Response(res, user.Code, user, user.Message)
+}
+
+// GetProfile return authenticated user profile
+func (uh *UserHTTPHandler) GetProfile(res http.ResponseWriter, req *http.Request) {
+	var bearer amodel.BearerClaims
+	decoded := ctx.Get(req, "decoded")
+
+	mapstructure.Decode(decoded.(*amodel.BearerClaims), &bearer)
+
+	data := uh.userDomain.GetByID(bearer.Subject)
+	wrapper.Response(res, data.Code, data, "user's profile")
 }

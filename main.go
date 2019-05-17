@@ -12,6 +12,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	db "gitlab.com/patricksangian/go-rest-mux/helpers/database"
+	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 )
 
@@ -24,6 +25,7 @@ func init() {
 
 func main() {
 	MgoSESS := db.NewMongoDBSession()
+	SignKey := utils.GetRSAPrivateKey()
 
 	r := mux.NewRouter()
 	r.Use(middleware.SetDefaultHeaders)
@@ -34,7 +36,8 @@ func main() {
 		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
-	app.MountUserApp("/api/v1/user", r, MgoSESS)
+	app.MountUserApp(r, MgoSESS)
+	app.MountAuthApp(r, SignKey, MgoSESS)
 
 	// CORS
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Origin", "Content-Type"})

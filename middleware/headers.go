@@ -13,7 +13,7 @@ func SetDefaultHeaders(next http.Handler) http.Handler {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods",
-			"GET,PUT,POST,DELETE")
+			"GET, PUT, POST, DELETE")
 		w.Header().Set("Access-Control-Allow-Headers",
 			"Origin, X-Requested-With, Content-Type")
 		next.ServeHTTP(w, r)

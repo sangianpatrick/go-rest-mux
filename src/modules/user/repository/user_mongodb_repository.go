@@ -77,7 +77,7 @@ func (umr *UserMongoRepository) FindByID(ID string) *wrapper.Property {
 func (umr *UserMongoRepository) FindByEmail(email string) *wrapper.Property {
 	var user model.User
 	query := bson.M{
-		"userID": email,
+		"email": email,
 	}
 	result := make(chan *wrapper.Property)
 
