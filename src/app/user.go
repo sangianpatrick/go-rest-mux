@@ -10,7 +10,7 @@ import (
 
 // MountUserApp will run user app
 func MountUserApp(route *mux.Router, mgoSESS *mgo.Session) {
-	prefixRoute := "/api/v1/user"
+	prefixRoute := "/api/v1/users"
 	mgoRepo := repository.NewUserMongoRepository(mgoSESS)
 	domain := domain.NewUserDomain(mgoRepo)
 	userRoute := route.PathPrefix(prefixRoute).Subrouter()

@@ -36,8 +36,8 @@ func main() {
 		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
-	app.MountUserApp(r, MgoSESS)
-	app.MountAuthApp(r, SignKey, MgoSESS)
+	app.MountAuthApp(r, SignKey, MgoSESS) // Auth
+	app.MountUserApp(r, MgoSESS)          // Users
 
 	// CORS
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Origin", "Content-Type"})

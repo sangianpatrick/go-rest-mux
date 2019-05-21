@@ -24,7 +24,7 @@ func NewUserHTTPHandler(r *mux.Router, ud user.Domain) {
 	uh := &UserHTTPHandler{
 		userDomain: ud,
 	}
-	r.HandleFunc("/", uh.CreateUser).Methods("POST")
+	r.HandleFunc("/registration", uh.CreateUser).Methods("POST")
 	r.HandleFunc("/{userID}", middleware.VerifyAccessToken(uh.GetUserByID)).Methods("GET")
 	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.GetProfile)).Methods("GET")
 }
