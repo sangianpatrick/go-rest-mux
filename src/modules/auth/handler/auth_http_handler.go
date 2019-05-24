@@ -10,21 +10,21 @@ import (
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
 )
 
-// AuthHTTPHandler contains http handler, auth entity and behavior
-type AuthHTTPHandler struct {
+// authHTTPHandler contains http handler, auth entity and behavior
+type authHTTPHandler struct {
 	authDomain auth.Domain
 }
 
 // NewAuthHTTPHandler act as handler constructor
 func NewAuthHTTPHandler(r *mux.Router, ad auth.Domain) {
-	ah := &AuthHTTPHandler{
+	ah := &authHTTPHandler{
 		authDomain: ad,
 	}
 	r.HandleFunc("/signin", ah.DoSignIn).Methods("POST")
 }
 
 // DoSignIn return user access token
-func (ah *AuthHTTPHandler) DoSignIn(res http.ResponseWriter, req *http.Request) {
+func (ah *authHTTPHandler) DoSignIn(res http.ResponseWriter, req *http.Request) {
 	var auth model.Auth
 	err := json.NewDecoder(req.Body).Decode(&auth)
 	if err != nil {
