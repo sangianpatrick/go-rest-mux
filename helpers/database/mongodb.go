@@ -1,9 +1,9 @@
 package database
 
 import (
-	"log"
 	"os"
 
+	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -20,14 +20,14 @@ func NewMongoDBSession() *mgo.Session {
 		Database: dbname,
 	})
 	if err != nil {
-		log.Fatalf(`MongoDB Error: %s`, err)
+		logger.Fatal("NewMongoDBSession", err)
 	}
 
 	err = session.Ping()
 	if err != nil {
-		log.Fatalf(`MongoDB Error: %s`, err)
+		logger.Fatal("NewMongoDBSession", err)
 	}
-	log.Println("MongoDB Info: Database is connected")
+	logger.Info("NewMongoDBSession", "Database is connected")
 
 	return session
 }

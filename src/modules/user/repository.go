@@ -10,5 +10,5 @@ type MongoRepositrory interface {
 	InsertOne(user *model.User) *wrapper.Property
 	FindByID(ID string) *wrapper.Property
 	FindByEmail(email string) *wrapper.Property
-	FindAll(limit int, skip int) *wrapper.Property
+	FindAll(page int, size int) *wrapper.Property
 }

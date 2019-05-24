@@ -55,7 +55,7 @@ func (ad *AuthDomain) generateCredential(user umodel.User) (string, error) {
 func (ad *AuthDomain) SignIn(payload *model.Auth) *wrapper.Property {
 	var credential model.Credential
 	retrieve := ad.mgoRepo.FindByEmail(payload.Email)
-	if retrieve.Error {
+	if !retrieve.Success {
 		return wrapper.Error(http.StatusUnauthorized, "not a registered user")
 	}
 	user, ok := retrieve.Data.(umodel.User)

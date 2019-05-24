@@ -13,8 +13,8 @@ import (
 // MountAuthApp will run auth app
 func MountAuthApp(route *mux.Router, signKey *rsa.PrivateKey, mgoSESS *mgo.Session) {
 	prefixRoute := "/api/v1/auth"
-	userMgoRepo := repository.NewUserMongoRepository(mgoSESS)
+	userMgoRepo := repository.NewUserMongo(mgoSESS)
 	domain := domain.NewAuthDomain(signKey, userMgoRepo)
-	userRoute := route.PathPrefix(prefixRoute).Subrouter()
-	handler.NewAuthHTTPHandler(userRoute, domain)
+	r := route.PathPrefix(prefixRoute).Subrouter()
+	handler.NewAuthHTTPHandler(r, domain)
 }

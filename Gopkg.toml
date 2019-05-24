@@ -56,3 +56,7 @@
 [[constraint]]
   name = "github.com/mitchellh/mapstructure"
   version = "1.1.2"
+
+[[constraint]]
+  name = "github.com/getsentry/raven-go"
+  version = "0.2.0"

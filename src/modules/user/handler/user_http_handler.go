@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	ctx "github.com/gorilla/context"
 	"github.com/gorilla/mux"
@@ -24,9 +25,10 @@ func NewUserHTTPHandler(r *mux.Router, ud user.Domain) {
 	uh := &UserHTTPHandler{
 		userDomain: ud,
 	}
-	r.HandleFunc("/registration", uh.CreateUser).Methods("POST")
+	r.HandleFunc("", middleware.VerifyAccessToken(uh.GetAllUser)).Queries("page", "{page}", "size", "{size}").Methods("GET")
 	r.HandleFunc("/{userID}", middleware.VerifyAccessToken(uh.GetUserByID)).Methods("GET")
 	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.GetProfile)).Methods("GET")
+	r.HandleFunc("/registration", uh.CreateUser).Methods("POST")
 }
 
 // CreateUser will handle creation of user
@@ -59,4 +61,13 @@ func (uh *UserHTTPHandler) GetProfile(res http.ResponseWriter, req *http.Request
 
 	data := uh.userDomain.GetByID(bearer.Subject)
 	wrapper.Response(res, data.Code, data, "user's profile")
+}
+
+// GetAllUser returns list of user
+func (uh *UserHTTPHandler) GetAllUser(res http.ResponseWriter, req *http.Request) {
+	page, _ := strconv.Atoi(req.FormValue("page"))
+	size, _ := strconv.Atoi(req.FormValue("size"))
+
+	data := uh.userDomain.GetAll(page, size)
+	wrapper.Response(res, data.Code, data, "list of user")
 }

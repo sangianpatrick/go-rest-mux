@@ -7,24 +7,24 @@ import (
 
 // Property contains properties of response
 type Property struct {
-	Error   bool        `json:"error"`
+	Success bool        `json:"success"`
 	Data    interface{} `json:"data,omitempty"`
-	Meta    meta        `json:"meta,omitempty"`
+	Meta    *meta       `json:"meta,omitempty"`
 	Message string      `json:"message"`
 	Code    int         `json:"code"`
 }
 
 type meta struct {
-	TotalPage       int
-	Page            int
-	TotalData       int
-	TotalDataOnPage int
+	TotalPage       int `json:"totalPage"`
+	Page            int `json:"page"`
+	TotalData       int `json:"totalData"`
+	TotalDataOnPage int `json:"totalDataOnPage"`
 }
 
 // Error returns error response properties.
 func Error(code int, message string) *Property {
 	return &Property{
-		Error:   true,
+		Success: false,
 		Message: message,
 		Code:    code,
 	}
@@ -33,7 +33,7 @@ func Error(code int, message string) *Property {
 // Data returns data response properties.
 func Data(code int, data interface{}, message string) *Property {
 	return &Property{
-		Error:   false,
+		Success: true,
 		Data:    data,
 		Message: message,
 		Code:    code,
@@ -43,9 +43,9 @@ func Data(code int, data interface{}, message string) *Property {
 // PaginationData returns data response properties with pagination.
 func PaginationData(code int, data interface{}, totalPage int, page int, totalData int, totalDataOnPage int, message string) *Property {
 	return &Property{
-		Error: false,
-		Data:  data,
-		Meta: meta{
+		Success: true,
+		Data:    data,
+		Meta: &meta{
 			TotalPage:       totalPage,
 			Page:            page,
 			TotalData:       totalData,

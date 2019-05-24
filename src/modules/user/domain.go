@@ -10,5 +10,5 @@ type Domain interface {
 	Create(user *model.User) *wrapper.Property
 	GetByEmail(email string) *wrapper.Property
 	GetByID(id string) *wrapper.Property
-	GetAll(limit int, skip int) *wrapper.Property
+	GetAll(page int, size int) *wrapper.Property
 }

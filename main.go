@@ -37,7 +37,7 @@ func main() {
 	})
 
 	app.MountAuthApp(r, SignKey, MgoSESS) // Auth
-	app.MountUserApp(r, MgoSESS)          // Users
+	app.MountUserApp(r, MgoSESS)          // User
 
 	// CORS
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Origin", "Content-Type"})
