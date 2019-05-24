@@ -17,21 +17,21 @@ import (
 	umodel "gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
-// AuthDomain contains auth property, entity and use cases
-type AuthDomain struct {
+// authDomain contains auth property, entity and use cases
+type authDomain struct {
 	mgoRepo user.MongoRepositrory
 	signKey *rsa.PrivateKey
 }
 
 // NewAuthDomain act as constructor
 func NewAuthDomain(signKey *rsa.PrivateKey, mgoRepo user.MongoRepositrory) auth.Domain {
-	return &AuthDomain{
+	return &authDomain{
 		mgoRepo: mgoRepo,
 		signKey: signKey,
 	}
 }
 
-func (ad *AuthDomain) generateCredential(user umodel.User) (string, error) {
+func (ad *authDomain) generateCredential(user umodel.User) (string, error) {
 	t := jwt.New(jwt.GetSigningMethod("RS256"))
 	claims := model.BearerClaims{
 		Email: user.Email,
@@ -52,7 +52,7 @@ func (ad *AuthDomain) generateCredential(user umodel.User) (string, error) {
 }
 
 // SignIn will return user auth token
-func (ad *AuthDomain) SignIn(payload *model.Auth) *wrapper.Property {
+func (ad *authDomain) SignIn(payload *model.Auth) *wrapper.Property {
 	var credential model.Credential
 	retrieve := ad.mgoRepo.FindByEmail(payload.Email)
 	if !retrieve.Success {

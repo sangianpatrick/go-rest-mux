@@ -10,7 +10,7 @@ import (
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
-// UserDomain contains user properties and use cases
+// userDomain contains user properties and use cases
 type userDomain struct {
 	mgoRepo user.MongoRepositrory
 }
