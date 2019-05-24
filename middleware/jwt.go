@@ -41,25 +41,33 @@ func VerifyAccessToken(next http.HandlerFunc) http.HandlerFunc {
 			return verifyKey, nil
 		})
 
-		if _, ok := token.Claims.(*model.BearerClaims); err == nil && token.Valid && ok {
-			ctx.Set(req, "decoded", token.Claims)
-			next(res, req)
-		} else if vE, ok := err.(*jwt.ValidationError); ok {
-			var errorString string
-			if vE.Errors&jwt.ValidationErrorMalformed != 0 {
-				errorString = fmt.Sprintf("invalid token format: %s", tokenString)
-			} else if vE.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-				errorString = "token is expired"
-			} else {
-				errorString = fmt.Sprintf("Token Parsing Error: %s", err.Error())
+		if err != nil {
+			if vE, ok := err.(*jwt.ValidationError); ok {
+				var errorString string
+				if vE.Errors&jwt.ValidationErrorMalformed != 0 {
+					errorString = fmt.Sprintf("invalid token format: %s", tokenString)
+				} else if vE.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
+					errorString = "token is expired"
+				} else {
+					errorString = fmt.Sprintf("Token Parsing Error: %s", err.Error())
+				}
+				err := wrapper.Error(http.StatusUnauthorized, errorString)
+				wrapper.Response(res, err.Code, err, err.Message)
+				return
 			}
-			err := wrapper.Error(http.StatusUnauthorized, errorString)
-			wrapper.Response(res, err.Code, err, err.Message)
-			return
-		} else {
+
 			err := wrapper.Error(http.StatusUnauthorized, "unknown token error")
 			wrapper.Response(res, err.Code, err, err.Message)
 			return
 		}
+
+		if _, ok := token.Claims.(*model.BearerClaims); token.Valid && ok {
+			ctx.Set(req, "decoded", token.Claims)
+			next(res, req)
+		}
+
+		unknownError := wrapper.Error(http.StatusUnauthorized, "unknown token format")
+		wrapper.Response(res, unknownError.Code, unknownError, unknownError.Message)
+		return
 	})
 }
