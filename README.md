@@ -23,7 +23,7 @@ These are the steps to run this app:
 {
   "success": false,
   "message":"Error message",
-  "success": false
+  "code": "<HTTP_ERROR_CODE> [400,401,404,409]"
 }
 ```
 
