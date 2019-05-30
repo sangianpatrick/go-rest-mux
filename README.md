@@ -16,10 +16,11 @@ These are the steps to run this app:
 
 ## Application
 
->The request header should contain:
-```{ Authorization: "Basic <token> }"``` or  ```{ Authorization: "Bearer <token>" }```
-```{ Content-Type: "application/json" }```
->The error response should be:
+- The request header should contain:
+
+```{ Authorization: "Basic <token> }"``` or  ```{ Authorization: "Bearer <token>" }``` and ```{ Content-Type: "application/json" }```
+
+- The error response should be:
 
 ```json
 {
@@ -29,7 +30,7 @@ These are the steps to run this app:
 }
 ```
 
->The success response should be:
+- The success response should be:
 
 ```json
 {
