@@ -41,6 +41,23 @@ These are the steps to run this app:
 }
 ```
 
+- The success pagination response should be:
+
+```json
+{
+  "success": true,
+  "data": "<MULTI DATA TYPE: array, stirng and object>",
+  "message":"Success message",
+  "code": "<HTTP_SUCCESS_CODE> [200]",
+  "meta": {
+    "totalPage": 20,
+    "page": 1,
+    "totalData": 200,
+    "totalDataOnPage": 10
+  }
+}
+```
+
 These are the list of endpoint:
 
 Method       | Authorization          | URI                          | Description
