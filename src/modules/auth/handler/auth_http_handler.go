@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"gitlab.com/patricksangian/go-rest-mux/middleware"
+
 	"github.com/gorilla/mux"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth"
@@ -20,7 +22,7 @@ func NewAuthHTTPHandler(r *mux.Router, ad auth.Domain) {
 	ah := &authHTTPHandler{
 		authDomain: ad,
 	}
-	r.HandleFunc("/signin", ah.DoSignIn).Methods("POST")
+	r.HandleFunc("/signin", middleware.VerifyBasicAuth(ah.DoSignIn)).Methods("POST")
 }
 
 // DoSignIn return user access token

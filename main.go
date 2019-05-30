@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"os"
 
@@ -11,7 +10,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	db "gitlab.com/patricksangian/go-rest-mux/helpers/database"
+	mongoDB "gitlab.com/patricksangian/go-rest-mux/helpers/database/mongodb"
+	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
+	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 )
@@ -19,13 +20,14 @@ import (
 func init() {
 	err := godotenv.Load(`.env`)
 	if err != nil {
-		panic(err)
+		logger.Fatal("main.init()", err)
 	}
 }
 
 func main() {
-	MgoSESS := db.NewMongoDBSession()
+	MgoSESS := mongoDB.NewMongoDBSession()
 	SignKey := utils.GetRSAPrivateKey()
+	emitter := eventemitter.NewEventEmitter()
 
 	r := mux.NewRouter()
 	r.Use(middleware.SetDefaultHeaders)
@@ -33,6 +35,7 @@ func main() {
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := wrapper.Data(http.StatusOK, nil, "connected to application")
+		emitter.EmitPrint(data)
 		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
@@ -45,5 +48,8 @@ func main() {
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 	credsOk := handlers.AllowCredentials()
 
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r)))
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r))
+	if err != nil {
+		logger.Fatal("main.main()", err)
+	}
 }

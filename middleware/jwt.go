@@ -64,6 +64,7 @@ func VerifyAccessToken(next http.HandlerFunc) http.HandlerFunc {
 		if _, ok := token.Claims.(*model.BearerClaims); token.Valid && ok {
 			ctx.Set(req, "decoded", token.Claims)
 			next(res, req)
+			return
 		}
 
 		unknownError := wrapper.Error(http.StatusUnauthorized, "unknown token format")

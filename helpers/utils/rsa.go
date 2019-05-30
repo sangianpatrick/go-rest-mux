@@ -3,8 +3,8 @@ package utils
 import (
 	"crypto/rsa"
 	"io/ioutil"
-	"log"
-	"os"
+
+	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )
@@ -18,15 +18,14 @@ const (
 func GetRSAPrivateKey() *rsa.PrivateKey {
 	signBytes, err := ioutil.ReadFile(privateKeyPath)
 	if err != nil {
-		log.Fatalf("RSA Error: %s", err)
-		os.Exit(1)
+		logger.Fatal("GetRSAPrivateKey", err)
 	}
 
 	signKey, err := jwt.ParseRSAPrivateKeyFromPEM(signBytes)
 	if err != nil {
-		log.Fatalf("RSA Error: %s", err)
-		os.Exit(1)
+		logger.Fatal("GetRSAPrivateKey", err)
 	}
+	logger.Info("GetRSAPrivateKey", "Successfuly loaded")
 	return signKey
 }
 
@@ -34,13 +33,11 @@ func GetRSAPrivateKey() *rsa.PrivateKey {
 func GetRSAPublicKey() *rsa.PublicKey {
 	verifyBytes, err := ioutil.ReadFile(publicKeyPath)
 	if err != nil {
-		log.Fatalf("RSA Error: %s", err)
-		os.Exit(1)
+		logger.Fatal("GetRSAPublicKey", err)
 	}
 	verifyKey, err := jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
 	if err != nil {
-		log.Fatalf("RSA Error: %s", err)
-		os.Exit(1)
+		logger.Fatal("GetRSAPublicKey", err)
 	}
 	return verifyKey
 }
