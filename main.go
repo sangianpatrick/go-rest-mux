@@ -12,6 +12,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	db "gitlab.com/patricksangian/go-rest-mux/helpers/database"
+	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 )
@@ -26,6 +27,7 @@ func init() {
 func main() {
 	MgoSESS := db.NewMongoDBSession()
 	SignKey := utils.GetRSAPrivateKey()
+	emitter := eventemitter.NewEventEmitter()
 
 	r := mux.NewRouter()
 	r.Use(middleware.SetDefaultHeaders)
@@ -33,6 +35,7 @@ func main() {
 
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := wrapper.Data(http.StatusOK, nil, "connected to application")
+		emitter.EmitPrint("connected to application")
 		wrapper.Response(w, data.Code, data, data.Message)
 	})
 
