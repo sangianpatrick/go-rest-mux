@@ -10,7 +10,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 	"gitlab.com/patricksangian/go-rest-mux/middleware"
-	amodel "gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
+	authModel "gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
@@ -54,10 +54,10 @@ func (uh *UserHTTPHandler) GetUserByID(res http.ResponseWriter, req *http.Reques
 
 // GetProfile return authenticated user profile
 func (uh *UserHTTPHandler) GetProfile(res http.ResponseWriter, req *http.Request) {
-	var bearer amodel.BearerClaims
+	var bearer authModel.BearerClaims
 	decoded := ctx.Get(req, "decoded")
 
-	mapstructure.Decode(decoded.(*amodel.BearerClaims), &bearer)
+	mapstructure.Decode(decoded.(*authModel.BearerClaims), &bearer)
 
 	data := uh.userDomain.GetByID(bearer.Subject)
 	wrapper.Response(res, data.Code, data, "user's profile")
