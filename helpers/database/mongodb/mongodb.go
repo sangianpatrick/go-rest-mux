@@ -1,4 +1,4 @@
-package database
+package mongodb
 
 import (
 	"os"
@@ -9,16 +9,8 @@ import (
 
 // NewMongoDBSession returns new sessaion of mongodb.
 func NewMongoDBSession() *mgo.Session {
-	host := os.Getenv("MONGO_HOST")
-	user := os.Getenv("MONGO_USER")
-	password := os.Getenv("MONGO_PASSWORD")
-	dbname := os.Getenv("MONGO_DBNAME")
-	session, err := mgo.DialWithInfo(&mgo.DialInfo{
-		Addrs:    []string{host},
-		Username: user,
-		Password: password,
-		Database: dbname,
-	})
+	mongoDBUrl := os.Getenv("MONGO_URL")
+	session, err := mgo.Dial(mongoDBUrl)
 	if err != nil {
 		logger.Fatal("NewMongoDBSession", err)
 	}
