@@ -1,3 +1,2 @@
-echo "This is you secret key:"
-openssl rand -base64 32
-echo "Put it to your .env file"
+echo "This is your basic auth token:"
+echo -n 'patrick.dev:9654afb4-8324-11e9-b999-34f39a1b1cb9' | openssl enc -base64

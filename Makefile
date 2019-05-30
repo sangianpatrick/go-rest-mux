@@ -10,5 +10,5 @@ dep:
 update:
 	dep ensure -update
 
-secret-key:
-	./secret-key-gen.sh
+run:
+	go build && ./go-rest-mux

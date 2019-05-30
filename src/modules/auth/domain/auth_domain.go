@@ -8,13 +8,15 @@ import (
 	"os"
 	"time"
 
+	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
+
 	jwt "github.com/dgrijalva/jwt-go"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
-	umodel "gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	userModel "gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
 // authDomain contains auth property, entity and use cases
@@ -31,7 +33,7 @@ func NewAuthDomain(signKey *rsa.PrivateKey, mgoRepo user.MongoRepositrory) auth.
 	}
 }
 
-func (ad *authDomain) generateCredential(user umodel.User) (string, error) {
+func (ad *authDomain) generateCredential(user userModel.User) (string, error) {
 	t := jwt.New(jwt.GetSigningMethod("RS256"))
 	claims := model.BearerClaims{
 		Email: user.Email,
@@ -45,7 +47,7 @@ func (ad *authDomain) generateCredential(user umodel.User) (string, error) {
 	t.Claims = claims
 	tokenString, err := t.SignedString(ad.signKey)
 	if err != nil {
-		log.Fatalf("Credential Error: %s", err.Error())
+		logger.Fatal("auth_domain.generateCredential", err)
 		return "", errors.New("Error while signing token")
 	}
 	return tokenString, nil
@@ -58,9 +60,9 @@ func (ad *authDomain) SignIn(payload *model.Auth) *wrapper.Property {
 	if !retrieve.Success {
 		return wrapper.Error(http.StatusUnauthorized, "not a registered user")
 	}
-	user, ok := retrieve.Data.(umodel.User)
+	user, ok := retrieve.Data.(userModel.User)
 	if !ok {
-		log.Fatal("Auth Error: Assertion on umodel.User")
+		log.Fatal("Auth Error: Assertion on userModel.User")
 		return wrapper.Error(http.StatusInternalServerError, "error detected due to user signin")
 	}
 
