@@ -17,7 +17,8 @@ These are the steps to run this app:
 ## Application
 
 >The request header should contain:
-```Content-Type: "application/json"```
+```{ Authorization: "Basic <token> }"``` or  ```{ Authorization: "Bearer <token>" }```
+```{ Content-Type: "application/json" }```
 >The error response should be:
 
 ```json
@@ -41,11 +42,15 @@ These are the steps to run this app:
 
 These are the list of endpoint:
 
-Method       | URI              | Description
------------- | ---------------- | -------------
-POST         | /users           | Create new user.
-GET          | /users/<:userID> | Get user by ID.
-GET          | /users           | Get list of user.
+Method       | Authorization          | URI                          | Description
+------------ | ---------------------- | ---------------------------- | -------------
+POST         | Basic {token}          | /api/v1/auth/signin          | User signin.
+POST         | Bearer {token}         | /api/v1/users/registration   | Create new user.
+GET          | Bearer {token}         | /api/v1/users/profile/me     | Get my profile.
+GET          | Bearer {token}         | /api/v1/users?page=1&size=10 | Get list of user depends on page and size.
+GET          | Bearer {token}         | /api/v1/users/{userID}       | Get one user with ID.
+PUT          | Bearer {token}         | /api/v1/users/{userID}       | Update one user with spesific ID.
+DELETE       | Bearer {token}         | /api/v1/users/{userID}       | Delete user with spesific ID.
 
 ## References
 
