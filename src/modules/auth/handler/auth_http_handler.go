@@ -10,6 +10,7 @@ import (
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
+	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/validation"
 )
 
 // authHTTPHandler contains http handler, auth entity and behavior
@@ -32,6 +33,11 @@ func (ah *authHTTPHandler) DoSignIn(res http.ResponseWriter, req *http.Request) 
 	if err != nil {
 		data := wrapper.Error(http.StatusUnprocessableEntity, err.Error())
 		wrapper.Response(res, data.Code, data, data.Message)
+		return
+	}
+	isValidPayload := validation.IsValidSignInPayload(&auth)
+	if !isValidPayload.Success {
+		wrapper.Response(res, isValidPayload.Code, isValidPayload, isValidPayload.Message)
 		return
 	}
 	data := ah.authDomain.SignIn(&auth)

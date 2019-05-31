@@ -6,8 +6,8 @@ import (
 
 // Auth contains auth property
 type Auth struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
 }
 
 // BearerClaims contains authorized token
