@@ -14,7 +14,7 @@ These are the steps to run this app:
 6. Run command ```dep ensure``` to install the dependencies
 7. Run command ```make test``` to run the unit testing
 8. Run command ```make dev``` to run app on development environment or
-9. Run command ```make run``` to run app on production environment
+9. Run command ```make run``` to create and run from app's executable
 
 ## Application
 
