@@ -57,8 +57,8 @@ func PaginationData(code int, data interface{}, totalPage int, page int, totalDa
 }
 
 // Response returns json data via http.
-func Response(w http.ResponseWriter, code int, data *Property, message string) error {
-	w.WriteHeader(code)
-	json.NewEncoder(w).Encode(data)
+func Response(res http.ResponseWriter, code int, data *Property, message string) error {
+	res.WriteHeader(code)
+	json.NewEncoder(res).Encode(data)
 	return nil
 }
