@@ -12,7 +12,9 @@ These are the steps to run this app:
 4. Go to project root directory (```$GOPATH/src/gitlab.com/patricksangian/go-rest-mux```)
 5. Populate the env file ```./.env.example``` with your own configuration and copy to ```./.env```
 6. Run command ```dep ensure``` to install the dependencies
-7. Start the app with command ```go run main.go``` or ```make dev```
+7. Run command ```make test``` to run the unit testing
+8. Run command ```make dev``` to run app on development environment or
+9. Run command ```make run``` to run app on production environment
 
 ## Application
 
