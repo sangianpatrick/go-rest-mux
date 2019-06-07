@@ -10,7 +10,7 @@ These are the steps to run this app:
 2. Create new project on sentry.io for your logger
 3. Clone this repository to your dir, eg. ```$GOPATH/src/gitlab.com/patricksangian```
 4. Go to project root directory (```$GOPATH/src/gitlab.com/patricksangian/go-rest-mux```)
-5. Populate the env file ```./env.example``` with your own configuration and copy to ```./env```
+5. Populate the env file ```./.env.example``` with your own configuration and copy to ```./.env```
 6. Run command ```dep ensure``` to install the dependencies
 7. Start the app with command ```go run main.go``` or ```make dev```
 
@@ -30,23 +30,23 @@ These are the steps to run this app:
 }
 ```
 
-- The success response should be:
+The success response should be:
 
 ```json
 {
   "success": true,
-  "data": "<MULTI DATA TYPE: array, stirng and object>",
+  "data": "<MULTI DATA TYPE: array, string, int and object>",
   "message":"Success message",
   "code": "<HTTP_SUCCESS_CODE> [200, 201]"
 }
 ```
 
-- The success pagination response should be:
+The success pagination response should be:
 
 ```json
 {
   "success": true,
-  "data": "<MULTI DATA TYPE: array, stirng and object>",
+  "data": "<DATA TYPE: array>",
   "message":"Success message",
   "code": "<HTTP_SUCCESS_CODE> [200]",
   "meta": {
@@ -63,7 +63,7 @@ These are the list of endpoint:
 Method       | Authorization          | URI                          | Description
 ------------ | ---------------------- | ---------------------------- | -------------
 POST         | Basic {token}          | /api/v1/auth/signin          | User signin.
-POST         | Bearer {token}         | /api/v1/users/registration   | Create new user.
+POST         | Basic {token}          | /api/v1/users/registration   | Create new user.
 GET          | Bearer {token}         | /api/v1/users/profile/me     | Get my profile.
 GET          | Bearer {token}         | /api/v1/users?page=1&size=10 | Get list of user depends on page and size.
 GET          | Bearer {token}         | /api/v1/users/{userID}       | Get one user with ID.
