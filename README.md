@@ -16,11 +16,11 @@ These are the steps to run this app:
 
 ## Application
 
-- The request header should contain:
+### The request header should contain:
 
 ```{ Authorization: "Basic <token> }"``` or  ```{ Authorization: "Bearer <token>" }``` and ```{ Content-Type: "application/json" }```
 
-- The error response should be:
+### The error response should be:
 
 ```json
 {
@@ -30,7 +30,7 @@ These are the steps to run this app:
 }
 ```
 
-The success response should be:
+### The success response should be:
 
 ```json
 {
@@ -41,7 +41,7 @@ The success response should be:
 }
 ```
 
-The success pagination response should be:
+### The success pagination response should be:
 
 ```json
 {
@@ -58,7 +58,7 @@ The success pagination response should be:
 }
 ```
 
-These are the list of endpoint:
+### These are the list of endpoint:
 
 Method       | Authorization          | URI                          | Description
 ------------ | ---------------------- | ---------------------------- | -------------
