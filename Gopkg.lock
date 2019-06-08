@@ -125,6 +125,14 @@
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:b0c25f00bad20d783d259af2af8666969e2fc343fa0dc9efe52936bbd67fb758"
+  name = "github.com/rs/cors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9a47f48565a795472d43519dd49aac781f3034fb"
+  version = "v1.6.0"
+
+[[projects]]
   digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
@@ -166,6 +174,7 @@
     "github.com/gorilla/mux",
     "github.com/joho/godotenv",
     "github.com/mitchellh/mapstructure",
+    "github.com/rs/cors",
     "github.com/stretchr/testify/assert",
     "gopkg.in/go-playground/validator.v9",
     "gopkg.in/mgo.v2",

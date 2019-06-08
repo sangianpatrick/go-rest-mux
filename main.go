@@ -2,14 +2,13 @@ package main
 
 import (
 	"net/http"
-	"os"
 
 	"gitlab.com/patricksangian/go-rest-mux/middleware"
 	"gitlab.com/patricksangian/go-rest-mux/src/app"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 	mongoDB "gitlab.com/patricksangian/go-rest-mux/helpers/database/mongodb"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
@@ -43,12 +42,13 @@ func main() {
 	app.MountUserApp(r, MgoSESS)          // User
 
 	// CORS
-	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Origin", "Content-Type"})
-	originsOk := handlers.AllowedOrigins([]string{"*"})
-	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
-	credsOk := handlers.AllowCredentials()
+	handler := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedHeaders: []string{"X-Requested-With", "Origin", "Content-Type", "Authorization"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+	}).Handler(r)
 
-	err := http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r))
+	err := http.ListenAndServe("localhost:9000", handler)
 	if err != nil {
 		logger.Fatal("main.main()", err)
 	}
