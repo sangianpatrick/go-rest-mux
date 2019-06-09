@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"gitlab.com/patricksangian/go-rest-mux/middleware"
 	"gitlab.com/patricksangian/go-rest-mux/src/app"
@@ -48,7 +50,7 @@ func main() {
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 	}).Handler(r)
 
-	err := http.ListenAndServe("localhost:9000", handler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), handler)
 	if err != nil {
 		logger.Fatal("main.main()", err)
 	}

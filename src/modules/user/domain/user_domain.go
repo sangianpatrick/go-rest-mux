@@ -37,7 +37,13 @@ func (ud *userDomain) Create(user *model.User) *wrapper.Property {
 	user.Password = encryptedPassword
 	result := ud.mgoRepo.InsertOne(user)
 	if result.Success {
-		ud.emitter.EmitEmailSender("go-rest-mux", os.Getenv("EMAIL_USERNAME"), "[go-rest-mux] User Registration", fmt.Sprintf("Hai %s, you are registered", user.Name), []string{user.Email})
+		ud.emitter.EmitEmailSender(
+			"go-rest-mux",
+			os.Getenv("EMAIL_USERNAME"),
+			"[go-rest-mux] User Registration",
+			fmt.Sprintf("Hai %s, you are registered", user.Name),
+			[]string{user.Email},
+		)
 	}
 	return result
 }
