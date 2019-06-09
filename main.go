@@ -39,7 +39,7 @@ func main() {
 	})
 
 	app.MountAuthApp(r, SignKey, MgoSESS) // Auth
-	app.MountUserApp(r, MgoSESS)          // User
+	app.MountUserApp(r, MgoSESS, emitter) // User
 
 	// CORS
 	handler := cors.New(cors.Options{
