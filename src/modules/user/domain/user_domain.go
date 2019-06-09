@@ -1,9 +1,12 @@
 package domain
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/google/uuid"
+	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
@@ -13,12 +16,14 @@ import (
 // userDomain contains user properties and use cases
 type userDomain struct {
 	mgoRepo user.MongoRepositrory
+	emitter eventemitter.Emitter
 }
 
 // NewUserDomain acts as constructor
-func NewUserDomain(mgoRepo user.MongoRepositrory) user.Domain {
+func NewUserDomain(mgoRepo user.MongoRepositrory, emitter eventemitter.Emitter) user.Domain {
 	return &userDomain{
 		mgoRepo: mgoRepo,
+		emitter: emitter,
 	}
 }
 
@@ -31,6 +36,9 @@ func (ud *userDomain) Create(user *model.User) *wrapper.Property {
 	user.ID = uuid.New().String()
 	user.Password = encryptedPassword
 	result := ud.mgoRepo.InsertOne(user)
+	if result.Success {
+		ud.emitter.EmitEmailSender("go-rest-mux", os.Getenv("EMAIL_USERNAME"), "[go-rest-mux] User Registration", fmt.Sprintf("Hai %s, you are registered", user.Name), []string{user.Email})
+	}
 	return result
 }
 

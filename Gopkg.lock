@@ -69,14 +69,6 @@
   version = "v1.1.1"
 
 [[projects]]
-  digest = "1:664d37ea261f0fc73dd17f4a1f5f46d01fbb0b0d75f6375af064824424109b7d"
-  name = "github.com/gorilla/handlers"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "7e0847f9db758cdebd26c149d0ae9d5d0b9c98ce"
-  version = "v1.4.0"
-
-[[projects]]
   digest = "1:3af6be4fee7c08f81f13d36f04ffb63ad4b6b5aaba12cce96095c7c2863d4912"
   name = "github.com/gorilla/mux"
   packages = ["."]
@@ -141,12 +133,28 @@
   version = "v1.3.0"
 
 [[projects]]
+  branch = "v3"
+  digest = "1:7388652e2215a3f45d341d58766ed58317971030eb1cbd75f005f96ace8e9196"
+  name = "gopkg.in/alexcesaro/quotedprintable.v3"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2caba252f4dc53eaf6b553000885530023f54623"
+
+[[projects]]
   digest = "1:ee2db1a4b9111947da887ff2f8972dd2cc80906e521a2d856901fa699b4b51ee"
   name = "gopkg.in/go-playground/validator.v9"
   packages = ["."]
   pruneopts = "UT"
   revision = "884d31b8cad6a1ec877f2400d555924cea03bbea"
   version = "v9.29.0"
+
+[[projects]]
+  digest = "1:eebd52aee67d9f1e0af1859a584e14b1817581dd5f90d4585418c27b6a93c966"
+  name = "gopkg.in/gomail.v2"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "41f3572897373c5538c50a2402db15db079fa4fd"
+  version = "2.0.0"
 
 [[projects]]
   branch = "v2"
@@ -170,13 +178,13 @@
     "github.com/getsentry/raven-go",
     "github.com/google/uuid",
     "github.com/gorilla/context",
-    "github.com/gorilla/handlers",
     "github.com/gorilla/mux",
     "github.com/joho/godotenv",
     "github.com/mitchellh/mapstructure",
     "github.com/rs/cors",
     "github.com/stretchr/testify/assert",
     "gopkg.in/go-playground/validator.v9",
+    "gopkg.in/gomail.v2",
     "gopkg.in/mgo.v2",
     "gopkg.in/mgo.v2/bson",
   ]
