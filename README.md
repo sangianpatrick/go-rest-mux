@@ -18,11 +18,11 @@ These are the steps to run this app:
 
 ## Application
 
-### The request header should contain:
+### Accepted Request Header
 
 ```{ Authorization: "Basic <token> }"``` or  ```{ Authorization: "Bearer <token>" }``` and ```{ Content-Type: "application/json" }```
 
-### The error response should be:
+### Error Response
 
 ```json
 {
@@ -32,7 +32,7 @@ These are the steps to run this app:
 }
 ```
 
-### The success response should be:
+### Success Response
 
 ```json
 {
@@ -43,7 +43,7 @@ These are the steps to run this app:
 }
 ```
 
-### The success pagination response should be:
+### Success Pagination Response
 
 ```json
 {
@@ -60,7 +60,7 @@ These are the steps to run this app:
 }
 ```
 
-### These are the list of endpoint:
+### List of Endpoint
 
 Method       | Authorization          | URI                          | Description
 ------------ | ---------------------- | ---------------------------- | -------------
@@ -69,8 +69,9 @@ POST         | Basic {token}          | /api/v1/users/registration   | Create ne
 GET          | Bearer {token}         | /api/v1/users/profile/me     | Get my profile.
 GET          | Bearer {token}         | /api/v1/users?page=1&size=10 | Get list of user depends on page and size.
 GET          | Bearer {token}         | /api/v1/users/{userID}       | Get one user with ID.
-PUT          | Bearer {token}         | /api/v1/users/{userID}       | Update one user with spesific ID.
-DELETE       | Bearer {token}         | /api/v1/users/{userID}       | Delete user with spesific ID.
+PUT          | Bearer {token}         | /api/v1/users/profile/me     | Update authorized user property.
+DELETE       | Bearer {token}         | /api/v1/users/profile/me     | Delete authorized user account.
+POST         | Bearer {token}         | /api/v1/users/article        | Create authorized user's article.
 
 ## References
 
