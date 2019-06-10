@@ -1,10 +1,12 @@
 package validation
 
 import (
+	"fmt"
 	"net/http"
 	"regexp"
 	"unicode"
 
+	"github.com/iancoleman/strcase"
 	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
 	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 	validator "gopkg.in/go-playground/validator.v9"
@@ -18,7 +20,21 @@ func IsValidUserRegistrationPayload(payload *model.User) *wrapper.Property {
 
 	err := validate.Struct(payload)
 	if err != nil {
-		return wrapper.Error(http.StatusBadRequest, err.Error())
+		errField := err.(validator.ValidationErrors)[0].Field()
+		return wrapper.Error(http.StatusBadRequest, fmt.Sprintf("invalid %s", strcase.ToLowerCamel(errField)))
+	}
+	return wrapper.Data(http.StatusOK, nil, "is valid payload")
+}
+
+// IsValidUserUpdateProfilePayload will validate incoming request payload for user update profile
+func IsValidUserUpdateProfilePayload(payload *model.User) *wrapper.Property {
+	validate := validator.New()
+	validate.RegisterValidation("idn-mobile-number", validIDNMobileNumber)
+	validate.RegisterValidation("password", validPassword)
+	err := validate.StructExcept(payload, "Password")
+	if err != nil {
+		errField := err.(validator.ValidationErrors)[0].Field()
+		return wrapper.Error(http.StatusBadRequest, fmt.Sprintf("invalid %s", strcase.ToLowerCamel(errField)))
 	}
 	return wrapper.Data(http.StatusOK, nil, "is valid payload")
 }

@@ -11,4 +11,6 @@ type MongoRepositrory interface {
 	FindByID(ID string) *wrapper.Property
 	FindByEmail(email string) *wrapper.Property
 	FindAll(page int, size int) *wrapper.Property
+	UpdateOne(ID string, data *model.User) *wrapper.Property
+	DeleteOne(ID string) *wrapper.Property
 }

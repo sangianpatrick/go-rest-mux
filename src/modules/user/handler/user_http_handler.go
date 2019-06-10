@@ -31,7 +31,9 @@ func NewUserHTTPHandler(r *mux.Router, ud user.Domain) {
 	r.HandleFunc("/{userID}", middleware.VerifyAccessToken(uh.GetUserByID)).Methods("GET")
 	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.GetProfile)).Methods("GET")
 	r.HandleFunc("/registration", middleware.VerifyBasicAuth(uh.CreateUser)).Methods("POST")
-	r.HandleFunc("/article", middleware.VerifyAccessToken(uh.CreateUserArticle)).Methods("POST")
+	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.UpdateProfile)).Methods("PUT")
+	r.HandleFunc("/profile/me", middleware.VerifyAccessToken(uh.DeleteProfile)).Methods("DELETE")
+	r.HandleFunc("/articles", middleware.VerifyAccessToken(uh.CreateUserArticle)).Methods("POST")
 }
 
 // CreateUser will handle creation of user
@@ -80,6 +82,40 @@ func (uh *UserHTTPHandler) GetAllUser(res http.ResponseWriter, req *http.Request
 	wrapper.Response(res, data.Code, data, "list of user")
 }
 
+// UpdateProfile will update user property
+func (uh *UserHTTPHandler) UpdateProfile(res http.ResponseWriter, req *http.Request) {
+	var updateData model.User
+	var bearer authModel.BearerClaims
+	decoded := ctx.Get(req, "decoded")
+
+	mapstructure.Decode(decoded.(*authModel.BearerClaims), &bearer)
+
+	err := json.NewDecoder(req.Body).Decode(&updateData)
+	if err != nil {
+		data := wrapper.Error(http.StatusUnprocessableEntity, "unprocessable payload")
+		wrapper.Response(res, data.Code, data, data.Message)
+		return
+	}
+	isValidPayload := validation.IsValidUserUpdateProfilePayload(&updateData)
+	if !isValidPayload.Success {
+		wrapper.Response(res, isValidPayload.Code, isValidPayload, isValidPayload.Message)
+		return
+	}
+	data := uh.userDomain.Update(bearer.Subject, &updateData)
+	wrapper.Response(res, data.Code, data, data.Message)
+}
+
+// DeleteProfile remove profile in application
+func (uh *UserHTTPHandler) DeleteProfile(res http.ResponseWriter, req *http.Request) {
+	var bearer authModel.BearerClaims
+	decoded := ctx.Get(req, "decoded")
+
+	mapstructure.Decode(decoded.(*authModel.BearerClaims), &bearer)
+
+	data := uh.userDomain.Delete(bearer.Subject)
+	wrapper.Response(res, data.Code, data, data.Message)
+}
+
 // CreateUserArticle will create user's article
 func (uh *UserHTTPHandler) CreateUserArticle(res http.ResponseWriter, req *http.Request) {
 	var bearer authModel.BearerClaims
@@ -91,10 +127,6 @@ func (uh *UserHTTPHandler) CreateUserArticle(res http.ResponseWriter, req *http.
 
 	mapstructure.Decode(decoded.(*authModel.BearerClaims), &bearer)
 
-	retrievingUser := uh.userDomain.GetByID(bearer.Subject)
-	user := retrievingUser.Data.(model.User)
-	article.CreatedBy = user
-
-	data := uh.userDomain.CreateArticle(&article)
+	data := uh.userDomain.CreateArticle(bearer.Subject, &article)
 	wrapper.Response(res, data.Code, data, "user's article is created")
 }

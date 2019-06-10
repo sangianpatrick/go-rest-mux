@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/sangianpatrick/go-rest-mux/helpers/eventemitter"
@@ -36,6 +37,8 @@ func (ud *userDomain) Create(user *model.User) *wrapper.Property {
 	}
 	user.ID = uuid.New().String()
 	user.Password = encryptedPassword
+	user.CreatedAt = time.Now()
+	user.UpdatedAt = time.Now()
 	result := ud.mgoRepo.InsertOne(user)
 	if result.Success {
 		ud.emitter.EmitEmailSender(
@@ -67,7 +70,24 @@ func (ud *userDomain) GetAll(page int, size int) *wrapper.Property {
 	return result
 }
 
-func (ud *userDomain) CreateArticle(article *articleModel.Article) *wrapper.Property {
+func (ud *userDomain) Update(ID string, data *model.User) *wrapper.Property {
+	data.UpdatedAt = time.Now()
+	result := ud.mgoRepo.UpdateOne(ID, data)
+	return result
+}
+
+func (ud *userDomain) Delete(ID string) *wrapper.Property {
+	result := ud.mgoRepo.DeleteOne(ID)
+	return result
+}
+
+func (ud *userDomain) CreateArticle(userID string, article *articleModel.Article) *wrapper.Property {
+	retrievingUser := ud.GetByID(userID)
+	if !retrievingUser.Success {
+		return retrievingUser
+	}
+	user := retrievingUser.Data.(model.User)
+	article.CreatedBy = user
 	ud.emitter.EmitCreateArticle(article)
 	result := wrapper.Data(http.StatusOK, nil, "user's article is on creating process")
 	return result
