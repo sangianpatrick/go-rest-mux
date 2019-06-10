@@ -16,6 +16,7 @@ import (
 	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	"gitlab.com/patricksangian/go-rest-mux/src/eventsource"
 )
 
 func init() {
@@ -28,7 +29,8 @@ func init() {
 func main() {
 	MgoSESS := mongoDB.NewMongoDBSession()
 	SignKey := utils.GetRSAPrivateKey()
-	emitter := eventemitter.NewEventEmitter()
+	es := eventsource.NewEventSource(MgoSESS)
+	emitter := eventemitter.NewEventEmitter(es)
 
 	r := mux.NewRouter()
 	r.Use(middleware.SetDefaultHeaders)

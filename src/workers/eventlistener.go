@@ -1,10 +1,14 @@
 package workers
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
 	"time"
+
+	"gitlab.com/patricksangian/go-rest-mux/src/modules/article"
+	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
 
 	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
 	"gopkg.in/gomail.v2"
@@ -65,4 +69,19 @@ func OnSendEmail(ch <-chan *gomail.Message) {
 			}
 		}
 	}()
+}
+
+// OnCreateArticle is listener
+func OnCreateArticle(aEE article.EventHandler, ch <-chan *articleModel.Article) {
+	logger.Info("OnCreateArticle", "status is listening")
+	for {
+		select {
+		case data := <-ch:
+			res := aEE.CreateArticle(data)
+			if !res.Success {
+				logger.Error("OnCreateArticle", errors.New(res.Message))
+			}
+			logger.Info("OnCreateArticle", res.Message)
+		}
+	}
 }
