@@ -12,5 +12,7 @@ type Domain interface {
 	GetByEmail(email string) *wrapper.Property
 	GetByID(id string) *wrapper.Property
 	GetAll(page int, size int) *wrapper.Property
-	CreateArticle(article *articleModel.Article) *wrapper.Property
+	Update(ID string, data *model.User) *wrapper.Property
+	Delete(ID string) *wrapper.Property
+	CreateArticle(userID string, article *articleModel.Article) *wrapper.Property
 }
