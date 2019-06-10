@@ -9,6 +9,7 @@ import (
 	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
@@ -37,7 +38,13 @@ func (ud *userDomain) Create(user *model.User) *wrapper.Property {
 	user.Password = encryptedPassword
 	result := ud.mgoRepo.InsertOne(user)
 	if result.Success {
-		ud.emitter.EmitEmailSender("go-rest-mux", os.Getenv("EMAIL_USERNAME"), "[go-rest-mux] User Registration", fmt.Sprintf("Hai %s, you are registered", user.Name), []string{user.Email})
+		ud.emitter.EmitEmailSender(
+			"go-rest-mux",
+			os.Getenv("EMAIL_USERNAME"),
+			"[go-rest-mux] User Registration",
+			fmt.Sprintf("Hai %s, you are registered", user.Name),
+			[]string{user.Email},
+		)
 	}
 	return result
 }
@@ -57,5 +64,11 @@ func (ud *userDomain) GetByEmail(email string) *wrapper.Property {
 // GetAll returns list of user
 func (ud *userDomain) GetAll(page int, size int) *wrapper.Property {
 	result := ud.mgoRepo.FindAll(page, size)
+	return result
+}
+
+func (ud *userDomain) CreateArticle(article *articleModel.Article) *wrapper.Property {
+	ud.emitter.EmitCreateArticle(article)
+	result := wrapper.Data(http.StatusOK, nil, "user's article is on creating process")
 	return result
 }

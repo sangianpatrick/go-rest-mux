@@ -2,6 +2,7 @@ package user
 
 import (
 	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
 	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
 )
 
@@ -11,4 +12,5 @@ type Domain interface {
 	GetByEmail(email string) *wrapper.Property
 	GetByID(id string) *wrapper.Property
 	GetAll(page int, size int) *wrapper.Property
+	CreateArticle(article *articleModel.Article) *wrapper.Property
 }
