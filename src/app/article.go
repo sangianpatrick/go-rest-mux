@@ -1,10 +1,10 @@
 package app
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article/domain"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article/handler"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article/repository"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article/domain"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article/handler"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article/repository"
 	mgo "gopkg.in/mgo.v2"
 )
 

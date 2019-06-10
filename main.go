@@ -5,18 +5,18 @@ import (
 	"net/http"
 	"os"
 
-	"gitlab.com/patricksangian/go-rest-mux/middleware"
-	"gitlab.com/patricksangian/go-rest-mux/src/app"
+	"github.com/sangianpatrick/go-rest-mux/middleware"
+	"github.com/sangianpatrick/go-rest-mux/src/app"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
-	mongoDB "gitlab.com/patricksangian/go-rest-mux/helpers/database/mongodb"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/eventsource"
+	mongoDB "github.com/sangianpatrick/go-rest-mux/helpers/database/mongodb"
+	"github.com/sangianpatrick/go-rest-mux/helpers/eventemitter"
+	"github.com/sangianpatrick/go-rest-mux/helpers/logger"
+	"github.com/sangianpatrick/go-rest-mux/helpers/utils"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/eventsource"
 )
 
 func init() {

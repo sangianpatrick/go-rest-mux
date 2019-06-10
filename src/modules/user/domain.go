@@ -1,9 +1,9 @@
 package user
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	articleModel "github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 )
 
 // Domain contains user's behavior.

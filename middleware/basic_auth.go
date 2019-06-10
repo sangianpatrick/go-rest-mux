@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
 )
 
 // VerifyBasicAuth middleware

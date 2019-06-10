@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
 )
 
 // ArticleEventHandler contains pro

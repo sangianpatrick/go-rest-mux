@@ -2,10 +2,10 @@ package app
 
 import (
 	"github.com/gorilla/mux"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/domain"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/handler"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/repository"
+	"github.com/sangianpatrick/go-rest-mux/helpers/eventemitter"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/domain"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/handler"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/repository"
 	mgo "gopkg.in/mgo.v2"
 )
 

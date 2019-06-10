@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"unicode"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 	validator "gopkg.in/go-playground/validator.v9"
 )
 

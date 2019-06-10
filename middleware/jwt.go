@@ -7,9 +7,9 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	ctx "github.com/gorilla/context"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/utils"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
 )
 
 // VerifyAccessToken middleware

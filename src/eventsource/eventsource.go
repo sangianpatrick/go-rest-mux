@@ -1,7 +1,7 @@
 package eventsource
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/src/app"
+	"github.com/sangianpatrick/go-rest-mux/src/app"
 	"gopkg.in/mgo.v2"
 )
 

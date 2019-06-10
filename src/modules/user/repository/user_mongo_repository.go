@@ -4,9 +4,9 @@ import (
 	"math"
 	"net/http"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )

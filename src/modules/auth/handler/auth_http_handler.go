@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gitlab.com/patricksangian/go-rest-mux/middleware"
+	"github.com/sangianpatrick/go-rest-mux/middleware"
 
 	"github.com/gorilla/mux"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/validation"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth/validation"
 )
 
 // authHTTPHandler contains http handler, auth entity and behavior

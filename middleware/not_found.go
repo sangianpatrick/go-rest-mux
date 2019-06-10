@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
 )
 
 // NotFoundHandler will handle if route is not found

@@ -1,8 +1,8 @@
 package user
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 )
 
 // MongoRepositrory conatains mongodb behavior for package user

@@ -8,8 +8,8 @@ These are the steps to run this app:
 
 1. Make sure Golang, DEP Package Manager, and MongoDB are installed
 2. Create new project on sentry.io for your logger
-3. Clone this repository to your dir, eg. ```$GOPATH/src/gitlab.com/patricksangian```
-4. Go to project root directory (```$GOPATH/src/gitlab.com/patricksangian/go-rest-mux```)
+3. Clone this repository to your dir, eg. ```$GOPATH/src/github.com/sangianpatrick```
+4. Go to project root directory (```$GOPATH/src/github.com/sangianpatrick/go-rest-mux```)
 5. Populate the env file ```./.env.example``` with your own configuration and copy to ```./.env```
 6. Run command ```dep ensure``` to install the dependencies
 7. Run command ```make test``` to run the unit testing

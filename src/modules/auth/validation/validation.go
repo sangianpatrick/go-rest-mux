@@ -3,8 +3,8 @@ package validation
 import (
 	"net/http"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	model "gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	model "github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
 	validator "gopkg.in/go-playground/validator.v9"
 )
 

@@ -6,12 +6,12 @@ import (
 	"os"
 
 	"github.com/google/uuid"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/eventemitter"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/eventemitter"
+	"github.com/sangianpatrick/go-rest-mux/helpers/utils"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	articleModel "github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 )
 
 // userDomain contains user properties and use cases

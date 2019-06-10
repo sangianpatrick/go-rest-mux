@@ -4,7 +4,7 @@ import (
 	"crypto/rsa"
 	"io/ioutil"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
+	"github.com/sangianpatrick/go-rest-mux/helpers/logger"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )

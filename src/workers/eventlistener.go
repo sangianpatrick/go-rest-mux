@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article"
-	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article"
+	articleModel "github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
+	"github.com/sangianpatrick/go-rest-mux/helpers/logger"
 	"gopkg.in/gomail.v2"
 )
 

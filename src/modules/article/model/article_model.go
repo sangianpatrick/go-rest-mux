@@ -1,7 +1,7 @@
 package model
 
 import (
-	uModel "gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	uModel "github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 )
 
 // Article contains article property

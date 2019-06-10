@@ -3,9 +3,9 @@ package eventemitter
 import (
 	"fmt"
 
-	article "gitlab.com/patricksangian/go-rest-mux/src/modules/article"
-	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/workers"
+	article "github.com/sangianpatrick/go-rest-mux/src/modules/article"
+	articleModel "github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/src/workers"
 	"gopkg.in/gomail.v2"
 )
 

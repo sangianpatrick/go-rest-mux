@@ -8,13 +8,13 @@ import (
 	ctx "github.com/gorilla/context"
 	"github.com/gorilla/mux"
 	"github.com/mitchellh/mapstructure"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/middleware"
-	articleModel "gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
-	authModel "gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user/validation"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/middleware"
+	articleModel "github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
+	authModel "github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user/validation"
 )
 
 // UserHTTPHandler contains http handler, user entity and behavior

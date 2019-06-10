@@ -1,8 +1,8 @@
 package auth
 
 import (
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
 )
 
 // Domain contains Auth behavior

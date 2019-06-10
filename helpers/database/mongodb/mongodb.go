@@ -3,7 +3,7 @@ package mongodb
 import (
 	"os"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
+	"github.com/sangianpatrick/go-rest-mux/helpers/logger"
 	mgo "gopkg.in/mgo.v2"
 )
 

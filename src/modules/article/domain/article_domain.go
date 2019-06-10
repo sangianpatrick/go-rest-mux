@@ -2,9 +2,9 @@ package domain
 
 import (
 	"github.com/google/uuid"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/article/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/article/model"
 )
 
 type articleDomain struct {

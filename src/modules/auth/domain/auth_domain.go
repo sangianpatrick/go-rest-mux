@@ -8,15 +8,15 @@ import (
 	"os"
 	"time"
 
-	"gitlab.com/patricksangian/go-rest-mux/helpers/logger"
+	"github.com/sangianpatrick/go-rest-mux/helpers/logger"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/utils"
-	"gitlab.com/patricksangian/go-rest-mux/helpers/wrapper"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/auth/model"
-	"gitlab.com/patricksangian/go-rest-mux/src/modules/user"
-	userModel "gitlab.com/patricksangian/go-rest-mux/src/modules/user/model"
+	"github.com/sangianpatrick/go-rest-mux/helpers/utils"
+	"github.com/sangianpatrick/go-rest-mux/helpers/wrapper"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/auth/model"
+	"github.com/sangianpatrick/go-rest-mux/src/modules/user"
+	userModel "github.com/sangianpatrick/go-rest-mux/src/modules/user/model"
 )
 
 // authDomain contains auth property, entity and use cases
